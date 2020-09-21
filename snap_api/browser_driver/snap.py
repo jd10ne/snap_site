@@ -5,15 +5,14 @@ import socket
 from subprocess import PIPE
 from shlex import quote
 
-import dns.resolver
-
+from boto3 import session
 from snap_api.validator import helper
 
 
 TEMP_DIR = '/tmp/'
-CHROMIUM_CMD = 'chromium-browser --no-sandbox --headless --disable-gpu --screenshot='
+CHROMIUM_CMD = 'chromium-browser --hide-scrollbars --no-sandbox --headless --disable-gpu --screenshot='
 
-def snapshot(url, destination):
+def snapshot(url, destination=None):
 
     try:
         # get site FQDN
@@ -26,14 +25,14 @@ def snapshot(url, destination):
 
         # Check DNS
         pre_cmd = "curl -I {}".format(quote(url))
-        pre_proc = subprocess.run(pre_cmd, shell=True)
+        pre_proc = subprocess.run(pre_cmd, shell=True, stdout=PIPE, stderr=PIPE, text=True)
         if pre_proc.returncode != 0:
             raise Exception("Not found URL: {}\n".format(url))
 
         # Take Snapshot
         cmd = "{}{} {}".format(CHROMIUM_CMD, file_path, quote(url))
         proc = subprocess.run(cmd, shell=True, stdout=PIPE, stderr=PIPE, text=True)
-        print(vars(proc))
+        # print(vars(proc))
         if proc.returncode != 0:
             raise Exception("Process Failed ({}): {}\n".format(proc.returncode, proc.stderr))
         logging.info("Screenshot created: {}\n".format(file_path))
