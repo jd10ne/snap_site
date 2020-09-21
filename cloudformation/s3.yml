@@ -1,0 +1,38 @@
+---
+AWSTemplateFormatVersion: 2010-09-09
+Description: thumnail
+
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      AccessControl: Private
+      BucketName: snap-api-for-anime-guide
+      Tags:
+        - Key: Kind
+          Value: anime
+
+  IamUser:
+    Type: AWS::IAM::User
+    Properties:
+      UserName: snap-api-container
+      Tags:
+        - Key: Kind
+          Value: anime
+
+  IamPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      ManagedPolicyName: S3AccessSnapApiContainer
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action:
+              - "s3:PutObject"
+              - "s3:GetObject"
+            Resource:
+              - !Sub ${S3Bucket.Arn}
+              - !Sub ${S3Bucket.Arn}/*
+      Users:
+        - !Ref IamUser
