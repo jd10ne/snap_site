@@ -9,11 +9,12 @@ ACCEPT_STR = os.environ['ACCEPT_STR'] if 'ACCEPT_STR' in os.environ.keys() else 
 
 def take_snap(request):
 
+    query_string = parse.unquote_to_bytes(request.query_string)
     # request has no query
-    hit = helper.is_query(request.query_string)
+    hit = helper.is_query(query_string)
 
     # parse query strings
-    q = parse.parse_qs(request.query_string.decode('utf-8'))
+    q = parse.parse_qs(query_string.decode('utf-8'))
     hit = hit and helper.has_url_key(q)
 
     # has no url param => error

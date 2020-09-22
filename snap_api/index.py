@@ -18,7 +18,7 @@ def take_snap():
     v.check_header(request.headers)
 
     v.take_snap(request)
-    urls = parse.parse_qs(request.query_string.decode('utf-8'))['url']
+    urls = parse.parse_qs(parse.unquote(request.query_string.decode('utf-8')))['url']
 
     thumnails = {}
     for u in urls:
