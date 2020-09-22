@@ -10,7 +10,7 @@ from snap_api.validator import helper
 
 
 TEMP_DIR = '/tmp/'
-CHROMIUM_CMD = 'chromium-browser --hide-scrollbars --no-sandbox --headless --disable-gpu --screenshot='
+CHROMIUM_CMD = 'chromium-browser --no-sandbox --hide-scrollbars --headless --disable-gpu --screenshot='
 
 def snapshot(url, destination=None):
 
