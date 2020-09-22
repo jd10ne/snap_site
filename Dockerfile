@@ -1,7 +1,7 @@
 FROM alpine:edge
 
 # install chromium
-RUN apk add --update chromium curl
+RUN apk add --update build-base chromium curl libffi-dev python3-dev
 
 # install fonts
 RUN mkdir /noto
@@ -33,9 +33,8 @@ COPY snap_api ./snap_api
 
 # install API dependencies
 RUN pipenv install
-## Webdriver
-# ADD https://chromedriver.storage.googleapis.com/85.0.4183.87/chromedriver_linux64.zip ./snap_api/browser_driver
 
-EXPOSE 5000
-# CMD ping localhost
-ENTRYPOINT ["/usr/src/app/bootstrap.sh"]
+ENV PORT=8080
+EXPOSE $PORT
+
+CMD ["/usr/src/app/bootstrap.sh"]
