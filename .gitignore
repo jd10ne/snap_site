@@ -3,4 +3,6 @@
 .vscode
 __pycache__
 *.zip
-env.list
+secret_env.list
+*.secret.json
+.envrc
