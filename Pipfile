@@ -11,6 +11,7 @@ pytest = "*"
 flask = "*"
 boto3 = "*"
 google-cloud-storage = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.8"
