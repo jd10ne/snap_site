@@ -47,6 +47,8 @@ docker run -itp 8080:8080 --env-file ./env.list  \
             - ACCEPT_STR=test
             - ACCEPT_HEADER=Aniapp
             - PROVIDER=GCP
+        - Service Account
+            - Attached GCS object admin role
 ```
 # Image push to Container Registory
 docker build . --tag gcr.io/snap-api/snap-api
