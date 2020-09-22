@@ -1,7 +1,11 @@
 from flask import abort
 from urllib import parse
 import logging
+import os
 from . import helper
+
+ACCEPT_HEADER = os.environ['ACCEPT_HEADER'] if 'ACCEPT_HEADER' in os.environ.keys() else 'Aniapp'
+ACCEPT_STR = os.environ['ACCEPT_STR'] if 'ACCEPT_STR' in os.environ.keys() else 'test'
 
 def take_snap(request):
 
@@ -26,3 +30,8 @@ def take_snap(request):
     if not hit:
         logging.error('URLs are invalid: {}'.format(q))
         return abort(400)
+
+def check_header(headers):
+    if headers.get(ACCEPT_HEADER) != ACCEPT_STR:
+        logging.warning('Unauthorized Access: {}'.format(headers))
+        return abort(403)

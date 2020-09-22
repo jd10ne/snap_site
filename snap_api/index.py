@@ -15,6 +15,8 @@ BUCKET=os.environ['BUCKET']
 
 @app.route('/', methods=['GET'])
 def take_snap():
+    v.check_header(request.headers)
+
     v.take_snap(request)
     urls = parse.parse_qs(request.query_string.decode('utf-8'))['url']
 
@@ -22,7 +24,7 @@ def take_snap():
     for u in urls:
         file_path = snap.snapshot(u, None)
         if file_path is None: abort(500)
-        presigned_url = tf.put_s3(file_path, BUCKET)
+        presigned_url = tf.put_obj(file_path, BUCKET)
         if presigned_url is None: abort(500)
 
         thumnails[u] = presigned_url

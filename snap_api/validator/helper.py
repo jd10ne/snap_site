@@ -36,3 +36,8 @@ def is_directory_traversal(path, limit_path):
     if os.path.commonprefix((os.path.realpath(path), limit_path)) != limit_path:
         return True
     return False
+
+def has_header(headers, key):
+    if headers.get(key) is None:
+        return False
+    return True
