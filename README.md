@@ -5,7 +5,7 @@ ScreenShot API
 ## Usage
 
 ```
-$ curl -H "Aniapp: test" "localhost:5001?url=https://www.google.com/&url=https://www.yahoo.co.jp/"
+$ curl -H "Aniapp: test" "localhost:8080?url=https://www.google.com/&url=https://www.yahoo.co.jp/"
 {"https://www.google.com/":"<ScreenShot Image URL (GCS or S3 Signed URL)>","https://www.yahoo.co.jp/":"<ScreenShot Image URL (GCS or S3 Signed URL)>"}
 ```
 
@@ -31,7 +31,7 @@ docker build -t snap-api .
 ## Local Launch
 
 ```
-docker run -itp 5001:5001 --env-file ./env.list  \
+docker run -itp 8080:8080 --env-file ./env.list  \
     -v $GOOGLE_APPLICATION_CREDENTIALS:/tmp/keys/<GCP SERVICE ACCOUNT CREDENTIAL JSON>:ro \
     snap-api
 ```
@@ -47,8 +47,8 @@ docker run -itp 5001:5001 --env-file ./env.list  \
             - PROVIDER=GCP
 ```
 # Image push to Container Registory
-docker build . --tag gcr.io/snap-api-290208/snap-api
-docker push gcr.io/snap-api-290208/snap-api
+docker build . --tag gcr.io/snap-api/snap-api
+docker push gcr.io/snap-api/snap-api
 
 # Please setup Cloud Run on the console
 ```
