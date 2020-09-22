@@ -40,8 +40,10 @@ docker run -itp 8080:8080 --env-file ./env.list  \
 
 - Google Cloud Run + Cloud Storage
     - Settings (Required)
+        - Port
+            - 8080 (Default)
         - Environment Variable
-            - BUCKET=<GCS bucket naem>
+            - BUCKET=your GCS bucket name
             - ACCEPT_STR=test
             - ACCEPT_HEADER=Aniapp
             - PROVIDER=GCP
