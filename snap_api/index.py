@@ -2,14 +2,15 @@ from flask import Flask, request, abort, Response, jsonify
 from urllib import parse
 import logging
 import os
-from snap_api.validator import valid as v
-from snap_api.browser_driver import snap
-import snap_api.tranfer as tf
+from validator import valid as v
+import snap
+import tranfer as tf
 
 app = Flask(__name__)
 # Enable UTF-8
 app.config["JSON_AS_ASCII"] = False
-logging.basicConfig(level=logging.DEBUG)
+# logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 
 BUCKET=os.environ['BUCKET']
 
@@ -30,3 +31,7 @@ def take_snap():
         thumnails[u] = presigned_url
     print(thumnails)
     return jsonify(thumnails), 200
+
+
+if __name__ == "__main__":
+    app.run(debug=False, host='0.0.0.0', port=int(os.environ.get('PORT', 8080)))

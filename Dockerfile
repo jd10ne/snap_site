@@ -28,11 +28,12 @@ ENV PIPENV_VENV_IN_PROJECT=1
 # deploy application
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
-COPY bootstrap.sh Pipfile Pipfile.lock ./
-COPY snap_api ./snap_api
+COPY snap_api ./
+RUN rm -rf .venv
 
 # install API dependencies
 RUN pipenv install
+
 
 ENV PORT=8080
 EXPOSE $PORT

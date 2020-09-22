@@ -6,7 +6,7 @@ from subprocess import PIPE
 from shlex import quote
 
 from boto3 import session
-from snap_api.validator import helper
+from validator import helper
 
 
 TEMP_DIR = '/tmp/'
